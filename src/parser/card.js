@@ -4,7 +4,7 @@ const AttributeError = require('./error').AttributeError;
 const  check = require('../common/check');
 
 function getFilenameWithoutPath(name) {
-    return name.replace(/^.*[\\\/]/, '');
+    return name.replace(/^.*[\\\/]/, ''); // eslint-disable-line
 }
 
 function getAttribute(data, argument) {
@@ -33,17 +33,11 @@ function parseAttrString(str) {
  * @throws {AttributeError} An exception is thrown when a document does not have a suitable attribute.
  */
 function getCardInfo(data) {
-    let result = {};
-    try {
-        const id = getAttribute(data.data,'id');
-        const path = getFilenameWithoutPath(data.path);
-        const languages = parseAttrString(getAttribute(data.data, 'languages'));
-        const tags = parseAttrString(getAttribute(data.data, 'tags'));
-        result = { id, path, languages, tags };
-    } catch (e) {
-        throw e;
-    }
-    return result;
+    const id = getAttribute(data.data,'id');
+    const path = getFilenameWithoutPath(data.path);
+    const languages = parseAttrString(getAttribute(data.data, 'languages'));
+    const tags = parseAttrString(getAttribute(data.data, 'tags'));
+    return { id, path, languages, tags };
 }
 
 module.exports = {

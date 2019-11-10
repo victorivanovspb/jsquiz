@@ -15,7 +15,7 @@ describe('src/parser/card.js', () => {
         expect(testing.parseAttrString('a, b, c')).toEqual(['a', 'b', 'c']);
     });
     test('getAttribute() - #1: correct attribute', (done) => {
-        const src = '<card id=\"someID\"></card>';
+        const src = '<card id="someID"></card>';
         parseString(src)
             .then((data) => {
                 const id = testing.getAttribute(data, 'id');
@@ -24,7 +24,7 @@ describe('src/parser/card.js', () => {
             });
     });
     test('getAttribute() - #2: throw AttributeError', (done) => {
-        const src = '<card id=\"someID\"></card>';
+        const src = '<card id="someID"></card>';
         parseString(src)
             .then((data) => {
                 const t = () => testing.getAttribute(data, 'anotherAttribute');
@@ -42,7 +42,7 @@ describe('src/parser/card.js', () => {
             });
     });
     test('getCardInfo() - #1', (done) => {
-        const src = '<card id=\"someID\" languages=\"ru, en\" tags=\"a, b, c\"></card>';
+        const src = '<card id="someID" languages="ru, en" tags="a, b, c"></card>';
         parseString(src)
             .then((data) => {
                 const { id, path, languages, tags } = testing.getCardInfo({ path: './dir/filename', data });
