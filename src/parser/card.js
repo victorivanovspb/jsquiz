@@ -10,7 +10,8 @@ function getFilenameWithoutPath(name) {
 function getAttribute(data, argument) {
     let result = null;
     try {
-        result = check.getNestedValue(data, 'card', '$', argument);
+        const attrs = ['card', '$', argument];
+        result = check.getNestedValue(data, ...attrs);
     } finally {
         if (!result) {
             throw new AttributeError(`${ data.path }: ${ argument }`);
