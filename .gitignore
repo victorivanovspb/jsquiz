@@ -1,3 +1,4 @@
 node_modules/
+data/var/
 \.idea/
 package-lock.json
