@@ -14,18 +14,13 @@ function checkAndMakeDirectoriesSync(path) {
 }
 
 function getNestedValue(data, ...attrs) {
-    const check = data => !!data;
-    if (!check(data)) {
-        return null;
-    }
-    let field = data;
-    for (let i = 0; i < attrs.length; i += 1 ) {
-        field = field[attrs[i]];
-        if (!check(field)) {
+    const f = (acc, item) => {
+        if (!acc) {
             return null;
         }
-    }
-    return field;
+        return acc[item];
+    };
+    return attrs.reduce(f, data);
 }
 
 module.exports = {
