@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<card
+        id="a-001"
+        languages="ru, en"
+        tags="function, typeof, arguments">
+
+    <description>
+        <text lang="ru">Вызов анонимной функции, возвращающей тип arguments.</text>
+        <text lang="en">Calling an anonymous function that returns "typeof arguments".</text>
+    </description>
+    <chain>
+        <element>
+            <question>
+                <text lang="ru">Что будет возвращено в результате работы этого кода?</text>
+                <text lang="en">What will be returned as a result of this code?</text>
+            </question>
+<code><![CDATA[
+(function(){
+    return typeof arguments;
+})();
+]]></code>
+            <answer type="radio">
+                <option answer="correct">"object"</option>
+                <option answer="wrong">"array"</option>
+                <option answer="wrong">"arguments"</option>
+                <option answer="wrong">"undefined"</option>
+            </answer>
+            <hints>
+                <hint>
+                    <text lang="ru">Подсказка: у любой функции в JS определена конструкция с именем arguments</text>
+                    <text lang="en">Hint: every function in javascript has defined construction with name "arguments"</text>
+                </hint>
+                <hint>
+                    <text lang="ru">Подсказка: arguments не наследуюется от Array (arguments instanceof Array &rarr; false)</text>
+                    <text lang="en">Hint: "arguments instanceof Array" is false</text>
+                </hint>
+            </hints>
+            <explanation>
+                <text lang="ru">
+                    Происходит вызов анонимной функции, внутри которой возвращается тип встроенного в каждую функцию объекта arguments.
+                    Притом, arguments наследуется именно от Object, а не от Array &mdash; поэтому в результате будет выведена строка "object".
+                </text>
+                <text lang="en">
+                    Explanation ...
+                </text>
+            </explanation>
+        </element>
+    </chain>
+</card>
