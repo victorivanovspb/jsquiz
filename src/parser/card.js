@@ -1,23 +1,15 @@
 'use strict';
 
 const AttributeError = require('./error').AttributeError;
-const  check = require('../common/check');
+const base = require('./base');
 
 function getFilenameWithoutPath(name) {
     return name.replace(/^.*[\\\/]/, ''); // eslint-disable-line
 }
 
-function getAttribute(data, argument) {
-    let result = null;
-    try {
-        const attrs = ['card', '$', argument];
-        result = check.getNestedValue(data.data, ...attrs);
-    } finally {
-        if (!result) {
-            throw new AttributeError(`${ data.path }: ${ argument }`);
-        }
-    }
-    return result;
+function getCardAttribute(data, argument) {
+    const attrs = ['card', '$', argument];
+    return base.getNestedElementsItem(data, ...attrs);
 }
 
 function parseAttrString(str) {
@@ -33,21 +25,26 @@ function parseAttrString(str) {
  * @throws {AttributeError} An exception is thrown when a document does not have a suitable attribute.
  */
 function getCardInfo(data) {
-    const id = getAttribute(data,'id');
+    const id = getCardAttribute(data,'id');
     const path = getFilenameWithoutPath(data.path);
-    const languages = parseAttrString(getAttribute(data, 'languages'));
-    const tags = parseAttrString(getAttribute(data, 'tags'));
+    const languages = parseAttrString(getCardAttribute(data, 'languages'));
+    const tags = parseAttrString(getCardAttribute(data, 'tags'));
     return { id, path, languages, tags };
 }
 
 function getCardMode(data) {
-    return getAttribute(data,'mode');
+    return getCardAttribute(data,'mode');
+}
+
+function getChainInfo(data) {
+    return [];
 }
 
 module.exports = {
     getFilenameWithoutPath,
-    getAttribute,
+    getCardAttribute,
     parseAttrString,
     getCardInfo,
     getCardMode,
+    getChainInfo,
 };
