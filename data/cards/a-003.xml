@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<card
+        mode="disabled"
+        id="a-003"
+        languages="ru"
+        tags="function, typeof, hoisting, var, let">
+
+    <description>
+        <text lang="ru">
+        </text>
+    </description>
+    <draft>
+<![CDATA[
+1.  var y = 1, x = y = typeof x;
+    console.log(x); // undefined
+
+2.  let y = 1, x = y = typeof x;
+    console.log(x); // ReferenceError
+
+3.  var y = 1, x = y = typeof y;
+    console.log(x); // number
+
+4.  let y = 1, x = y = typeof y;
+    console.log(x); // number
+]]>
+    </draft>
+    <chain>
+        <element item="1">
+            <question>
+                <text lang="ru">Что будет выведено в консоль в результате работы этого кода?</text>
+                <text lang="en">What will be printed as a result of this code?</text>
+            </question>
+            <code>
+<![CDATA[
+var y = 1, x = y = typeof x;
+console.log(x);
+]]>
+            </code>
+            <answer type="radio">
+                <option answer="correct">"undefined"</option>
+                <option answer="wrong">Error</option>
+                <option answer="wrong">"number"</option>
+                <option answer="wrong">"function"</option>
+                <option answer="wrong">"object"</option>
+                <option answer="wrong">""</option>
+            </answer>
+            <hints>
+                <hint>
+                    <text lang="ru">Подсказка: при определении переменной с помощью "var" происходит &laquo;поднятие/всплытие&raquo; (hoisting).</text>
+                </hint>
+            </hints>
+            <explanation>
+                <text lang="ru">
+                    Присваивание значений идет в следующем порядке: 1. "y = 1"; 2. "y = typeof x"; 3. "x = y".
+                    Притом, так как переменные задаются с помощью "var", то происходит "всплытие" (hoisting) и на момент 2-го присваивания ("y = typeof x")
+                    переменная "x" уже создана и содержит значение undefined. Следовательно, typeof undefined &rarr; "undefined".
+                </text>
+            </explanation>
+        </element>
+        <element item="2">
+            <question>
+                <text lang="ru">Что будет выведено в консоль в результате работы этого кода?</text>
+                <text lang="en">What will be printed as a result of this code?</text>
+            </question>
+            <code>
+<![CDATA[
+let y = 1, x = y = typeof x;
+console.log(x);
+]]>
+            </code>
+            <answer type="radio">
+                <option answer="correct">Error</option>
+                <option answer="wrong">"number"</option>
+                <option answer="wrong">"function"</option>
+                <option answer="wrong">"object"</option>
+                <option answer="wrong">"undefined"</option>
+                <option answer="wrong">""</option>
+            </answer>
+            <hints>
+                <hint>
+                    <text lang="ru">Подсказка: при использовании "let" переменная видна только после объявления.</text>
+                </hint>
+            </hints>
+            <explanation>
+                <text lang="ru">
+                    При выполнении инструкции "typeof x" осущестляется попытка доступа к переменной до её инициализации,
+                    что приводит к ошибке &mdash; ReferenceError: can't access lexical declaration 'x' before initialization.
+                </text>
+            </explanation>
+        </element>
+        <element item="3">
+            <question>
+                <text lang="ru">Что будет выведено в консоль в результате работы этого кода?</text>
+            </question>
+            <code>
+<![CDATA[
+var y = 1, x = y = typeof y;
+console.log(x); // number
+]]>
+            </code>
+            <answer type="radio">
+                <option answer="correct">"number"</option>
+                <option answer="wrong">"function"</option>
+                <option answer="wrong">"object"</option>
+                <option answer="wrong">"undefined"</option>
+                <option answer="wrong">Error</option>
+                <option answer="wrong">""</option>
+            </answer>
+            <hints>
+                <hint>
+                    <text lang="ru">
+                        Подсказка: при определении переменной с помощью "var" происходит &laquo;всплытие&raquo; (hoisting).
+                    </text>
+                </hint>
+            </hints>
+            <explanation>
+                <text lang="ru">
+                    Переменная "y" инициализируется значением 1. И при последующем переопределении выражением "typeof y"
+                    значение меняется на "number". После чего такое же значение записывается и в переменную "x".
+                </text>
+            </explanation>
+        </element>
+        <element item="4">
+            <question>
+                <text lang="ru">Что будет выведено в консоль в результате работы этого кода?</text>
+            </question>
+            <code>
+<![CDATA[
+let y = 1, x = y = typeof y;
+console.log(x);
+]]>
+            </code>
+            <answer type="radio">
+                <option answer="correct">"number"</option>
+                <option answer="wrong">"function"</option>
+                <option answer="wrong">"object"</option>
+                <option answer="wrong">"undefined"</option>
+                <option answer="wrong">Error</option>
+                <option answer="wrong">""</option>
+            </answer>
+            <hints>
+                <hint>
+                    <text lang="ru">Подсказка: при использовании "let" переменная видна только после объявления.</text>
+                </hint>
+            </hints>
+            <explanation>
+                <text lang="ru">
+                    Переменная "y" инициализируется значением 1. И при последующем переопределении выражением "typeof y"
+                    значение меняется на "number". После чего такое же значение записывается и в переменную "x".
+                </text>
+            </explanation>
+        </element>
+    </chain>
+</card>

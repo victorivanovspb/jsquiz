@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<card
+        mode="enabled"
+        id="a-002"
+        languages="ru"
+        tags="function, typeof">
+
+    <description>
+        <text lang="ru">Определение функции и её последующий вызов.</text>
+    </description>
+    <chain>
+        <element>
+            <question>
+                <text lang="ru">Что будет возвращено в результате работы этого кода?</text>
+                <text lang="en">What will be returned as a result of this code?</text>
+            </question>
+            <code>
+<![CDATA[
+var f = function g(){ return 23; };
+typeof g();
+]]>
+            </code>
+            <answer type="radio">
+                <option answer="correct">Error</option>
+                <option answer="wrong">"number"</option>
+                <option answer="wrong">"undefined"</option>
+                <option answer="wrong">"function"</option>
+            </answer>
+            <hints>
+                <hint>
+                    <text lang="ru">Подсказка: ...</text>
+                </hint>
+            </hints>
+            <explanation>
+                <text lang="ru">
+                    ...Named Function Expression. Его имя видно только внутри, снаружи переменная "g" не определена...
+
+                    Функция задается как «функциональное выражение» (Function Expression) и не проиходит определения функции по имени "g()".
+                    Следовательно, вызов функции по этому имени приведет к ошибке "ReferenceError: g is not defined".
+                </text>
+            </explanation>
+        </element>
+    </chain>
+</card>
