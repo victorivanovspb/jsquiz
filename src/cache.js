@@ -22,7 +22,7 @@ function updateCache(dirPath) {
     const someStupidCode = (contents) => { // :-)))
         const m = [];
         contents.map(data => m.push(data));
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             Promise
                 .resolve(m)
                 .then(m => resolve(m));
@@ -40,8 +40,12 @@ function updateCache(dirPath) {
     const parseCardInfo = (mass) => {
         const f = (acc, item) => {
             try {
-                const card = parser.getCardInfo(item);
-                acc[card.id] = card;
+                const mode = parser.getCardMode(item);
+                if (mode === 'enabled') {
+                    const card = parser.getCardInfo(item);
+                    card.chain = parser.getChainInfo(item);
+                    acc[card.id] = card;
+                }
             } catch (e) {
                 if (e instanceof AttributeError) {
                     logger.error({ message: e.message });
