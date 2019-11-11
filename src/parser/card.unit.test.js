@@ -14,35 +14,35 @@ describe('src/parser/card.js', () => {
     test('parseAttrString()', () => {
         expect(testing.parseAttrString('a, b, c')).toEqual(['a', 'b', 'c']);
     });
-    test('getAttribute() - #1: correct attribute', (done) => {
-        const src = '<card id=\"someID\"></card>';
+    test('getCardAttribute() - #1: correct attribute', (done) => {
+        const src = '<card id="someID"></card>';
         parseString(src)
             .then((data) => {
-                const id = testing.getAttribute(data, 'id');
+                const id = testing.getCardAttribute({ data: data }, 'id');
                 expect(id).toBe('someID');
                 done();
             });
     });
-    test('getAttribute() - #2: throw AttributeError', (done) => {
-        const src = '<card id=\"someID\"></card>';
+    test('getCardAttribute() - #2: throw AttributeError', (done) => {
+        const src = '<card id="someID"></card>';
         parseString(src)
             .then((data) => {
-                const t = () => testing.getAttribute(data, 'anotherAttribute');
+                const t = () => testing.getCardAttribute(data, 'anotherAttribute');
                 expect(t).toThrow(AttributeError);
                 done();
             });
     });
-    test('getAttribute() - #3: throw AttributeError', (done) => {
+    test('getCardAttribute() - #3: throw AttributeError', (done) => {
         const src = '<card></card>';
         parseString(src)
             .then((data) => {
-                const t = () => testing.getAttribute(data, 'another');
+                const t = () => testing.getCardAttribute(data, 'another');
                 expect(t).toThrow(AttributeError);
                 done();
             });
     });
     test('getCardInfo() - #1', (done) => {
-        const src = '<card id=\"someID\" languages=\"ru, en\" tags=\"a, b, c\"></card>';
+        const src = '<card id="someID" languages="ru, en" tags="a, b, c"></card>';
         parseString(src)
             .then((data) => {
                 const { id, path, languages, tags } = testing.getCardInfo({ path: './dir/filename', data });

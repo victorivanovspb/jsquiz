@@ -13,17 +13,6 @@ function checkAndMakeDirectoriesSync(path) {
     }
 }
 
-function getNestedValue(data, ...attrs) {
-    const f = (acc, item) => {
-        if (!acc) {
-            return null;
-        }
-        return acc[item];
-    };
-    return attrs.reduce(f, data);
-}
-
 module.exports = {
     checkAndMakeDirectoriesSync,
-    getNestedValue,
 };

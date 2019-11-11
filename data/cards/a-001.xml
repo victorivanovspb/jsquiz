@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <card
+        mode="enabled"
         id="a-001"
         languages="ru, en"
         tags="function, typeof, arguments">
@@ -8,17 +9,26 @@
         <text lang="ru">Вызов анонимной функции, возвращающей тип arguments.</text>
         <text lang="en">Calling an anonymous function that returns "typeof arguments".</text>
     </description>
+    <draft>
+<![CDATA[
+(function(){
+    return typeof arguments;
+})(); // "object"
+]]>
+    </draft>
     <chain>
-        <element>
+        <element id="1">
             <question>
                 <text lang="ru">Что будет возвращено в результате работы этого кода?</text>
                 <text lang="en">What will be returned as a result of this code?</text>
             </question>
-<code><![CDATA[
+            <code>
+<![CDATA[
 (function(){
     return typeof arguments;
 })();
-]]></code>
+]]>
+            </code>
             <answer type="radio">
                 <option answer="correct">"object"</option>
                 <option answer="wrong">"array"</option>
