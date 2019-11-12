@@ -62,4 +62,31 @@ describe('src/parser/card.js', () => {
                 done();
             });
     });
+    test('getCardMode() - #1: enabled', (done) => {
+        const src = '<card mode="enabled"></card>';
+        parseString(src)
+            .then((data) => {
+                const m = testing.getCardMode({ path: 'example', data });
+                expect(m).toBe('enabled');
+                done();
+            });
+    });
+    test('getCardMode() - #2: disabled', (done) => {
+        const src = '<card mode="disabled"></card>';
+        parseString(src)
+            .then((data) => {
+                const m = testing.getCardMode({ path: 'example', data });
+                expect(m).toBe('disabled');
+                done();
+            });
+    });
+    test('getCardMode() - #3: throw AttributeError', (done) => {
+        const src = '<card></card>';
+        parseString(src)
+            .then((data) => {
+                const t = () => testing.getCardMode( { path: 'example', data });
+                expect(t).toThrow(AttributeError);
+                done();
+            });
+    });
 });
