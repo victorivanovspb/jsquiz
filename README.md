@@ -3,6 +3,7 @@
 [![Build status][travis-image]][travis-url]
 [![dependency status][dependency-image]][dependency-url]
 [![devDependency status][devdependency-image]][devdependency-url]
+[![Coverage Status](https://coveralls.io/repos/github/victorivanovspb/jsquiz/badge.svg?branch=master)](https://coveralls.io/github/victorivanovspb/jsquiz?branch=master)
 
 ### Installation from NPM 
 ```
