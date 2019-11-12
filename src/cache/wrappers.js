@@ -6,6 +6,9 @@ const xml = require('xml2js');
 /**
  * Wrapper function (wraps fs.readFile) for storing file path.
  * The path to the file is necessary during further processing of the content and logging errors.
+ * @param {string} pathToFile
+ * @param {function} cb
+ * @returns {undefined}
  */
 function readFileWrapper(pathToFile, cb) {
     fs.readFile(pathToFile, (err, data) => {
@@ -19,6 +22,8 @@ function readFileWrapper(pathToFile, cb) {
 /**
  * Creates wrapper function (wraps xml.parseString function) for storing file path.
  * The path to the file is necessary during further processing of the content and logging errors.
+ * @param {string} pathToFile
+ * @returns {function}
  */
 function createXmlParseStringWrapper(pathToFile) {
     return function (str, cb) {

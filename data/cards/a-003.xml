@@ -25,7 +25,7 @@
 ]]>
     </draft>
     <chain>
-        <element item="1">
+        <element id="1">
             <question>
                 <text lang="ru">Что будет выведено в консоль в результате работы этого кода?</text>
                 <text lang="en">What will be printed as a result of this code?</text>
@@ -57,7 +57,7 @@ console.log(x);
                 </text>
             </explanation>
         </element>
-        <element item="2">
+        <element id="2">
             <question>
                 <text lang="ru">Что будет выведено в консоль в результате работы этого кода?</text>
                 <text lang="en">What will be printed as a result of this code?</text>
@@ -88,7 +88,7 @@ console.log(x);
                 </text>
             </explanation>
         </element>
-        <element item="3">
+        <element id="3">
             <question>
                 <text lang="ru">Что будет выведено в консоль в результате работы этого кода?</text>
             </question>
@@ -120,7 +120,7 @@ console.log(x); // number
                 </text>
             </explanation>
         </element>
-        <element item="4">
+        <element id="4">
             <question>
                 <text lang="ru">Что будет выведено в консоль в результате работы этого кода?</text>
             </question>

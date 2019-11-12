@@ -2,6 +2,11 @@
 
 const AttributeError = require('./error').AttributeError;
 
+/**
+ * @param {object} data
+ * @param {array} attrs
+ * @returns {object|string|null}
+  */
 function getNestedValue(data, ...attrs) {
     const f = (acc, item) => {
         if (!acc) {
@@ -12,6 +17,12 @@ function getNestedValue(data, ...attrs) {
     return attrs.reduce(f, data);
 }
 
+/**
+ * @param {object} data
+ * @param {array} attrs
+ * @returns {object|string}
+ * @throws {AttributeError}
+ */
 function getNestedElementsItem(data, ...attrs) {
     let result = null;
     try {

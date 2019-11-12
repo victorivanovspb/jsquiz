@@ -9,7 +9,7 @@
         <text lang="ru">Определение функции и её последующий вызов.</text>
     </description>
     <chain>
-        <element>
+        <element id="1">
             <question>
                 <text lang="ru">Что будет возвращено в результате работы этого кода?</text>
                 <text lang="en">What will be returned as a result of this code?</text>

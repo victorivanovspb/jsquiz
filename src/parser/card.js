@@ -3,15 +3,29 @@
 const AttributeError = require('./error').AttributeError;
 const base = require('./base');
 
+/**
+ * @param {string} name
+ * @returns {string}
+ */
 function getFilenameWithoutPath(name) {
     return name.replace(/^.*[\\\/]/, ''); // eslint-disable-line
 }
 
+/**
+ * @param {object} data
+ * @param {string} argument
+ * @returns {object|string|null}
+ * @throws {AttributeError}
+ */
 function getCardAttribute(data, argument) {
     const attrs = ['card', '$', argument];
     return base.getNestedElementsItem(data, ...attrs);
 }
 
+/**
+ * @param {string} str
+ * @returns {array}
+  */
 function parseAttrString(str) {
     const f = (acc, item) => {
         acc.push(item.trim());
@@ -21,7 +35,8 @@ function parseAttrString(str) {
 }
 
 /**
- * @param data
+ * @param {object} data
+ * @returns {object}
  * @throws {AttributeError} An exception is thrown when a document does not have a suitable attribute.
  */
 function getCardInfo(data) {
