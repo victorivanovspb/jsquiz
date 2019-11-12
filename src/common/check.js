@@ -2,6 +2,12 @@
 
 const fs = require('fs');
 
+/**
+ * This function iteratively checks (existsSync) all directories and subdirectories specified in the transmitted
+ * string *@param path) and creates (mkdirSync) directories if they do not exist.
+ * @param {string} path
+ * @returns {undefined}
+ */
 function checkAndMakeDirectoriesSync(path) {
     const mass = path.split('/');
     let dir = '';
