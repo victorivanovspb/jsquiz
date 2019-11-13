@@ -6,40 +6,8 @@ const parseString = util.promisify(require('xml2js').parseString);
 const AttributeError = require('./error').AttributeError;
 
 describe('src/parser/card.js', () => {
-    test('getFilenameWithoutPath()', () => {
-        expect(testing.getFilenameWithoutPath('./dir/filename.ext')).toBe('filename.ext');
-        expect(testing.getFilenameWithoutPath('dir/subdir/filename')).toBe('filename');
-        expect(testing.getFilenameWithoutPath('filename')).toBe('filename');
-    });
     test('parseAttrString()', () => {
         expect(testing.parseAttrString('a, b, c')).toEqual(['a', 'b', 'c']);
-    });
-    test('getCardAttribute() - #1: correct attribute', (done) => {
-        const src = '<card id="someID"></card>';
-        parseString(src)
-            .then((data) => {
-                const id = testing.getCardAttribute({ data: data }, 'id');
-                expect(id).toBe('someID');
-                done();
-            });
-    });
-    test('getCardAttribute() - #2: throw AttributeError', (done) => {
-        const src = '<card id="someID"></card>';
-        parseString(src)
-            .then((data) => {
-                const t = () => testing.getCardAttribute(data, 'anotherAttribute');
-                expect(t).toThrow(AttributeError);
-                done();
-            });
-    });
-    test('getCardAttribute() - #3: throw AttributeError', (done) => {
-        const src = '<card></card>';
-        parseString(src)
-            .then((data) => {
-                const t = () => testing.getCardAttribute(data, 'another');
-                expect(t).toThrow(AttributeError);
-                done();
-            });
     });
     test('getCardInfo() - #1', (done) => {
         const src = '<card id="someID" languages="ru, en" tags="a, b, c"></card>';
@@ -85,6 +53,24 @@ describe('src/parser/card.js', () => {
         parseString(src)
             .then((data) => {
                 const t = () => testing.getCardMode( { path: 'example', data });
+                expect(t).toThrow(AttributeError);
+                done();
+            });
+    });
+    test('getChainInfo() - #1', (done) => {
+        const src = '<card><chain><element id="1"></element><element id="2"></element></chain></card>';
+        parseString(src)
+            .then((data) => {
+                const t = () => testing.getChainInfo( { path: 'example', data });
+                expect(t()).toEqual(['1', '2']);
+                done();
+            });
+    });
+    test('getChainInfo() - #2', (done) => {
+        const src = '<card></card>';
+        parseString(src)
+            .then((data) => {
+                const t = () => testing.getChainInfo( { path: 'example', data });
                 expect(t).toThrow(AttributeError);
                 done();
             });

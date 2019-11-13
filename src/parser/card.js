@@ -4,25 +4,6 @@ const AttributeError = require('./error').AttributeError;
 const base = require('./base');
 
 /**
- * @param {string} name
- * @returns {string}
- */
-function getFilenameWithoutPath(name) {
-    return name.replace(/^.*[\\\/]/, ''); // eslint-disable-line
-}
-
-/**
- * @param {object} data
- * @param {string} argument
- * @returns {object|string|null}
- * @throws {AttributeError}
- */
-function getCardAttribute(data, argument) {
-    const attrs = ['card', '$', argument];
-    return base.getNestedElementsItem(data, ...attrs);
-}
-
-/**
  * @param {string} str
  * @returns {array}
   */
@@ -40,24 +21,45 @@ function parseAttrString(str) {
  * @throws {AttributeError} An exception is thrown when a document does not have a suitable attribute.
  */
 function getCardInfo(data) {
-    const id = getCardAttribute(data,'id');
-    const path = getFilenameWithoutPath(data.path);
-    const languages = parseAttrString(getCardAttribute(data, 'languages'));
-    const tags = parseAttrString(getCardAttribute(data, 'tags'));
+    const parse = str => parseAttrString(str);
+    const at = card => arg => base.getAttributeFromNode(card, arg);
+    const card = base.getNode(data, ['card']);
+    const id = at(card)('id');
+    const languages = parse(at(card)('languages'));
+    const tags = parse(at(card)('tags'));
+    const path = base.getFilenameWithoutPath(data.path);
     return { id, path, languages, tags };
 }
 
+/**
+ * @param {object} data
+ * @returns {string}
+ * @throws {AttributeError} An exception is thrown when a document does not have a suitable attribute.
+ */
 function getCardMode(data) {
-    return getCardAttribute(data,'mode');
+    const card = base.getNode(data, ['card']); // getNodeCard(data);
+    return base.getAttributeFromNode(card, 'mode');
 }
 
+/**
+ * @param {object} data
+ * @returns {array} Returns array of elements ids.
+ * @throws {AttributeError}
+ */
 function getChainInfo(data) {
-    return [];
+    const parseIds = (chain) => {
+        const result = [];
+        const e = chain[0].element;
+        for (let i = 0; i < e.length; i += 1) {
+            result.push(e[i]['$'].id);
+        }
+        return result;
+    };
+    const chain = base.getNode(data, ['card', 'chain']).data;
+    return parseIds(chain);
 }
 
 module.exports = {
-    getFilenameWithoutPath,
-    getCardAttribute,
     parseAttrString,
     getCardInfo,
     getCardMode,
