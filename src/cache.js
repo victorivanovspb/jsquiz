@@ -58,7 +58,7 @@ function updateCache(dirPath) {
         return mass.reduce(f, {});
     };
     const saveCache = (cache) => {
-        const filepath = path.join('../data/var', 'cache.json');
+        const filepath = path.join('../var/cache', 'cache.json');
         const writeCache = () => {
             const data = JSON.stringify({ cards: cache }, undefined, 2);
             return writeFile(filepath, data);
