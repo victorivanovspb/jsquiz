@@ -1,8 +1,16 @@
 'use strict';
 
 const testing = require('./base');
+const util = require('util');
+const parseString = util.promisify(require('xml2js').parseString);
+const AttributeError = require('./error').AttributeError;
 
 describe('src/common/base.js', () => {
+    test('getFilenameWithoutPath()', () => {
+        expect(testing.getFilenameWithoutPath('./dir/filename.ext')).toBe('filename.ext');
+        expect(testing.getFilenameWithoutPath('dir/subdir/filename')).toBe('filename');
+        expect(testing.getFilenameWithoutPath('filename')).toBe('filename');
+    });
     test('getNestedValue() - #1', () => {
         const data = {
             'obj': {
@@ -55,5 +63,63 @@ describe('src/common/base.js', () => {
         const v = testing.getNestedValue({obj: 'data'}, ...[]);
         expect(v).not.toBeNull();
         expect(v).toEqual({obj: 'data'});
+    });
+    test('get attribute from Card - #1: correct attribute', (done) => {
+        const src = '<card id="someID"></card>';
+        parseString(src)
+            .then((data) => {
+                const card = testing.getNode({path: 'path', data }, ['card']);
+                const id = testing.getAttributeFromNode(card, 'id');
+                expect(id).toBe('someID');
+                done();
+            });
+    });
+    test('get attribute from Card - #2: throw AttributeError', (done) => {
+        const src = '<card id="someID"></card>';
+        parseString(src)
+            .then((data) => {
+                const t = () => {
+                    const card = testing.getNode( {path: 'path', data }, ['card']);
+                    return testing.getAttributeFromNode(card, 'anotherAttribute');
+                };
+                expect(t).toThrow(AttributeError);
+                done();
+            });
+    });
+    test('get attribute from Card - #3: throw AttributeError', (done) => {
+        const src = '<card></card>';
+        parseString(src)
+            .then((data) => {
+                const t = () => {
+                    const card = testing.getNode( {path: 'path', data }, ['card']);
+                    return testing.getAttributeFromNode(card, 'anotherAttribute');
+                };
+                expect(t).toThrow(AttributeError);
+                done();
+            });
+    });
+    test('getNestedElementsItem() - #1: correct attribute', (done) => {
+        const src = '<card id="value"></card>';
+        parseString(src)
+            .then((data) => {
+                const t = () => {
+                    const attrs = ['card', '$', 'id'];
+                    return testing.getNestedElementsItem(data, 'path', ...attrs);
+                };
+                expect(t()).toBe('value');
+                done();
+            });
+    });
+    test('getNestedElementsItem() - #2: throw AttributeError', (done) => {
+        const src = '<card></card>';
+        parseString(src)
+            .then((data) => {
+                const t = () => {
+                    const attrs = ['card', '$', 'id'];
+                    return testing.getNestedElementsItem(data, 'path', ...attrs);
+                };
+                expect(t).toThrow(AttributeError);
+                done();
+            });
     });
 });
