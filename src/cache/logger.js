@@ -4,7 +4,7 @@ const winston = require('winston');
 const check = require('../common/check');
 const path = require('path');
 
-const dirPath = '../var/cache';
+const dirPath = '../../var/cache';
 const filename = 'cache-error.json';
 check.checkAndMakeDirectoriesSync(dirPath);
 

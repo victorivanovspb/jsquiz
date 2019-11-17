@@ -4,11 +4,11 @@ const util = require('util');
 const path = require('path');
 const fs = require('fs');
 
-const parser = require('./parser/card');
-const AttributeError = require('./parser/error').AttributeError;
+const parser = require('../parser/card');
+const AttributeError = require('../parser/error').AttributeError;
 
-const logger = require('./cache/logger').logger;
-const wrappers = require('./cache/wrappers');
+const logger = require('./logger').logger;
+const wrappers = require('./wrappers');
 const readFile = util.promisify(wrappers.readFileWrapper);
 const readDirectory = util.promisify(fs.readdir);
 const writeFile = util.promisify(fs.writeFile);
@@ -58,7 +58,7 @@ function updateCache(dirPath) {
         return mass.reduce(f, {});
     };
     const saveCache = (cache) => {
-        const filepath = path.join('../var/cache', 'cache.json');
+        const filepath = path.join('../../var/cache', 'cache.json');
         const writeCache = () => {
             const data = JSON.stringify({ cards: cache }, undefined, 2);
             return writeFile(filepath, data);
@@ -81,4 +81,4 @@ async function start(dirPath) {
     console.log('result:', mass);
 }
 
-start('../data/cards');
+start('../../data/cards');
